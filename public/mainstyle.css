@@ -1,0 +1,224 @@
+*{
+    margin: 0;
+    padding: 0;  
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
+
+.container{
+    justify-content: center;
+}  
+.grid-container1{
+    justify-content: center;
+    justify-items: center;
+}
+
+h2{ 
+    text-align: center; 
+    padding: 2rem; 
+    font-size: 2rem;
+}
+.mainimg{
+    width: 100%;  
+    object-fit: cover;
+}
+.location {
+    position: relative;
+    top: -5rem;
+    z-index: 2;
+    color: #eee;
+    height: 28rem;
+    width: 100%;
+    padding-top: 6rem;
+    background: -webkit-linear-gradient(rgba(160,169,64,0) 3%,rgb(160, 169, 64) 17% );
+}
+.location p{
+    text-align:center; 
+    font-size: large;
+    font-weight: 500; 
+} 
+.box{ 
+    position: relative;  
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;   
+    gap: 4rem;
+    z-index: 3; 
+    top: -10rem;   
+    width: 100%; 
+}   
+.perimg{ 
+    width:22rem;   
+    min-height: 30rem;
+    object-fit: cover; 
+}
+.setcion{   
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    width: 22rem;
+    min-height: 30rem;  
+    padding: 8rem 0 0 1rem  ;
+    justify-content: center; 
+} 
+.setcion h3{ 
+    font-weight: 800; 
+    font-size: 1.4rem; 
+    margin-bottom: 1.5rem;
+}  
+.setcion p{ 
+    font-size: 1rem; 
+    padding: 0 1rem 0 1rem;
+    margin-bottom: 1.5rem;
+} 
+.setcion i{ 
+    margin-left :1rem; 
+}  
+.buutonbooknow{  
+    margin: 1rem;  
+    width:80%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; 
+    color:#eee;
+    border: 0.1rem solid #a0a940;
+    border-radius: .1rem; 
+    background-color:#a0a940;
+}
+
+.grid-container2{ 
+    display: block; 
+    padding: 3rem 3rem 0rem 3rem;
+}
+.grid-container2  h2{
+    text-align: center; 
+    font-weight: 700; 
+    padding-bottom: 3rem;
+} 
+.bookingsection{ 
+    width: 100%;  
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 1.6rem;
+    justify-content: center;
+}
+.calender{ 
+    width: 22rem;
+    justify-content: center;
+    background-color: #12121f;
+    color: #eee;
+} 
+.header-box{ 
+    display: flex; 
+    color:#eee ;
+    background-color: #167e56;
+    justify-content: center; 
+    width : 22rem;
+    height: 2.8rem; 
+    align-items: center;
+    text-align: center; 
+    padding: 0rem; 
+}
+.days{ 
+    width: 22rem; 
+    background-color: #222227;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+.days div{
+    width: calc(22rem/7);
+    height: 2.5rem;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.dates{
+    width: 22rem;
+    display: flex; 
+    flex-wrap: wrap; 
+    background-color: #222227;
+}
+.dates div{  
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: calc(22rem/7); 
+    text-align: center;
+    vertical-align:middle;
+    padding-top: 0.2rem 0 .2rem 0;
+    height: 2.5rem; 
+} 
+.dates div:hover:not(.today,.booked) {
+    background-color: #777;
+    cursor: pointer;
+  } 
+.today{ 
+    background-color: #167e56; 
+}  
+.today:hover{
+    background-color: #167e56; 
+    cursor: default;
+}
+.pastDays{ 
+    opacity: 50% ;
+} 
+.booked{
+    background-color :maroon;   
+    cursor:default;
+} 
+.nexMonthStart{ 
+    border-bottom: #777 0.01rem solid;
+}  
+.form{ 
+    width: 22rem; 
+} 
+.form input[type='checkbox']{
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 1px solid black;
+    border-radius: .2rem;
+} 
+form label{ 
+        font-weight: 700;
+}
+form input{     
+    border-radius:.2rem ;
+    border: #a0a940 1px solid;
+    width: 100%; 
+    height: 2rem ;
+    font-family: inherit;
+    font-size: inherit ;
+    outline: none; 
+    margin: .2rem; 
+    padding: 0;
+} 
+form .bbut{
+     background-color: #a0a940;
+     color: #eee; 
+    height: 2rem;
+}
+.amenit{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.fac{
+    margin: 1rem; 
+}  
+.fac img{ 
+    object-fit: cover;
+    width: 22rem;
+    min-height: 25rem;
+}
+.fac h3{   
+    padding: 1.6rem; 
+    border-bottom: #a0a940 solid 1px;
+    text-align: center;
+} 
+.about p{
+    text-align: center;
+} 

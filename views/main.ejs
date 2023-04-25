@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%-include('./partials/head.ejs')  %> 
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6254a3ebb0d10b6f3e6d032a/1g0da0k5p';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+     <body>  
+        <%- include('./partials/nav.ejs')  %>  
+        <div class="container"> 
+            <div class="grid-container1"> 
+                <img class="mainimg" src="images/img-1.jpg" alt=""> 
+                <div class="location" >
+                    <h2>Location</h2> 
+                    <p >Ghoris Farmhouse,</p>
+                    <p>3-61 Pothugal Village,</p>     
+                    <p>Shahbad Mandal,</p> 
+                    <p>Hyderabad,</p>   
+                    <p>Telangana,509217</p>
+                </div> 
+            </div> 
+            <div class="box">    
+             <img src="images/img-5.jpg" class="perimg"  alt=""> 
+                <div class="setcion">  
+                   <h3>Welcome to Ghoris farm house</h3>
+                    <p>Would you like to experience the tranquality of the farm or 
+                        Enjoyment with friends and family in the farmhouse or 
+                        You want to take a break from the regular hustle? 
+                        You could book the Farmhouse for </p> 
+                        <i class="fas fa-angle-right">Events </i> 
+                        <br>
+                        <i class="fas fa-angle-right">Vacations</i> 
+                        <br>
+                        <i class="fas fa-angle-right">Holidays</i> 
+                        <br> 
+                        <i class="fas fa-angle-right">Parties</i> 
+                        <br>
+                        <a href="#booking" class="buutonbooknow">BOOK NOW</a>
+                </div> 
+            </div>
+            
+            <div  id="amenit">  
+                <h2>FACILIITES/ AMENITIES</h2> 
+                <div class="amenit">  
+                <div class="fac">  
+                    <img src="images/img-4.jpg"  class="img2"> 
+                    <h3>Swimming pool</h3>
+                </div>
+                <div class="fac">
+                    <img src="images/img-3.jpg" class="img3">
+                    <h3>PLay Area</h3>
+                </div> 
+                <div class="fac">
+                    <img src="images/img-5.jpg" class="img3">
+                    <h3>Out Door seating</h3>
+                </div> 
+                </div> 
+            </div> 
+            <div>
+                <h2>ABOUT`</h2> 
+                <div class="about" id="about" > 
+                    <p> The GHORIS Farm House is one of the best farm house in Hyderabad. </p>
+                    <p> You could enjoy the nature and have a fun time with your frinds and family.</p> 
+                    <p>There is a play area for kids, sports kit such as football, cricket, volleyball for youngsters</p> 
+                    <p>Swimming pool and well equiped house for your resting </p>
+                </div>
+            
+            </div>   
+            <div class="grid-container2" id="booking"> 
+                <h2>BOOKINGS</h2> 
+                <div class="bookingsection">
+                <div class="calender" >  
+                    <% const date = new Date();%> 
+                    <div class="header-box">  
+                        <div class="month-date">    
+                            <h3 class="month">  </h3>
+                            <p><%= date.toDateString(); %>  </p> 
+                        </div>
+                    </div>
+                    <div class="days">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div> 
+                    </div>  
+                    <div class="dates">     
+                        <%  const todaysdate = date.getDate(); 
+                            const todaysday= date.getDay();
+                            const month= date.getMonth()+1; 
+                            const y = date.getFullYear(); 
+                            const myDatesToIso=( virtualDate )=>{ 
+                                let n = virtualDate.split('-') ; n[1]= Number(n[1])-1; 
+                                let nDate = new Date(n[2],n[1],n[0]); 
+                                const offSet= nDate.getTimezoneOffset(); 
+                                nDate = new Date(nDate.getTime()-(offSet*60*1000)); 
+                                return nDate.toISOString();
+                            } 
+                            const isoToMyDates=(isoString)=>{ 
+                                let p = isoString.split('T'); 
+                                let mDate = p[0].split('-').reverse().join('-'); 
+                                return mDate;
+                            }
+                            const booked= [];
+                            const datesBetween=(date1,date2)=>{   
+                                d1 = new Date(myDatesToIso(date1)); 
+                                d2 = new Date(myDatesToIso(date2)); 
+                                while(d1<d2){
+                                   booked.push(isoToMyDates(new Date(d1).toISOString())); 
+                                   d1 =new Date(d1).setDate(new Date(d1).getDate()+1);
+                                }
+                            } 
+                            db.table.forEach(row => { 
+                                datesBetween(row.start,row.end); 
+                            });
+                            const lastdateofthismonth = new Date(y,month,0 ).getDate();
+                            for(pd =todaysday;pd>0; pd-- ){  
+                                let p = new Date(y,month-1,todaysdate-pd).getDate()%>
+                                    <div class="pastDays"><%=p %></div>
+                                <%}
+                            for(nd=todaysdate;nd<=lastdateofthismonth;nd++) {
+                                let virtualDate = `${nd}-${month}-${y}`;  
+                                if(nd===todaysdate ) {%>
+                                    <div class="today"><%=nd%></div> 
+                                <%continue;} 
+                                if(booked.includes(isoToMyDates(myDatesToIso(virtualDate)))){%>
+                                    <div class="booked" onclick="getTimenDate()"><%=nd%> </div>
+                                <%}                               
+                                if(!booked.includes(isoToMyDates(myDatesToIso(virtualDate)))){%>
+                                    <div class="dat" data-value="<%= virtualDate%>" onclick="sendDate('<%-virtualDate%>',hrs.checked)"><%= nd%></div>
+                            <%}} 
+                           const m = month+ 1; 
+                           const nfd = new Date(y,month,todaysdate).getDay(); 
+                           const diff = 6-nfd; 
+                           for(md=1;md<=todaysdate+diff;md++){ 
+                               const mfe = new Date(y,month,md);   
+                               let virtualDate = isoToMyDates(myDatesToIso(`${mfe.getDate()}-${mfe.getMonth()+1}-${y}`));
+                                if(booked.includes(virtualDate)){%>
+                                    <div class="booked" onclick="getTimenDate()"><%=mfe.getDate()%> </div>
+                                <%}  
+                                if(md ===1 && !booked.includes(virtualDate)){%>
+                                    <div class="nexMonthStart"  data-value="<%=virtualDate%>" onclick="sendDate('<%-virtualDate%>',hrs.checked)"><%=mfe.getDate()%></div>
+                                <% continue; } 
+                                if(!booked.includes(isoToMyDates(myDatesToIso(virtualDate)))){ %> 
+                                   <div class="dat" id="date" data-value="<%=virtualDate%>" onclick="sendDate('<%-virtualDate%>',hrs.checked)"> <%=mfe.getDate()%></div>
+                                <%}
+                        }%>
+                       
+                    </div> 
+                </div>
+                <p id="sentence"></p>  
+                <br>                  
+                <div class="form"> 
+                    <input type="checkbox" name="24hrs" id="hrs" onclick="reset.click()"> 
+                    <label for="24hrs">24hrs booking</label> 
+                    <br>
+                        <form action="/booking" class="bookingForm" onsubmit="validation()"  method="post">  
+                            <br>
+                            <label for="start_date">Booking strats from</label> 
+                            <br>
+                            <input type="text" name="start" id="start_date" oninput="endDateValue(start_date.value,hrs.checked)" required>
+                            <br>
+                            <label for="end_date">Booking ends till </label> 
+                            <br>
+                            <input type="text" name="end" id="end_date" required>
+                            <br>
+                            <label for="cust_name"> Name</label>  
+                            <br>
+                            <input type="text" name="cust_name" id="cust_name" minlength="3" required>
+                            <br>
+                            <label for="cust_num">Phone</label> 
+                            <br> 
+                            <input type="tel" name="cust_num" id="cust_num" minlength="10" maxlength="10" required>
+                            <br>
+                            <input type="submit" class="bbut" value="Book now"> 
+                            <input type="reset" value="reset" id="reset" hidden >
+                        </form>                    
+                </div> 
+            </div>                
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15244.067934077802!2d78.1286502!3d17.2179654!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x23da9399ea66c310!2sGhori&#39;s%20Farmhouse!5e0!3m2!1sen!2sin!4v1649688822437!5m2!1sen!2sin" 
+            width="100%" style="border:1px black solid; margin: 3rem 0 1rem 0;  min-height: 33rem; " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>  
+        <div>
+            
+        </div>  
+        <%- include('./partials/footer.ejs')%>
+        <script src="mainscript.js"></script>
+    </body>
+</html>

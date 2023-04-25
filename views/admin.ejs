@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<style>  
+    .hide{ 
+        display: none;
+    } 
+    #delete:hover{ 
+        background-color: aliceblue; 
+        color: tomato;
+    }
+</style>
+<%-include('./partials/head.ejs')  %>
+<body>
+    <%- include('./partials/nav.ejs')  %> 
+    <div style=" width:100%; display: grid; place-content: center; "> 
+
+        <div style="width:24rem; ">
+            <form id="adminInput" action="/admin/search" method="post"  > 
+                <input type="text" placeholder="dd-mm-yyyy (start date)" id="start" name="start" minlength="10" maxlength="10" data-start-search> 
+                <input type="text" placeholder="dd-mm-yyyy (end date)" id="end" name="end" minlength="10" maxlength="10" data-end-search> 
+                <input type="text" name="name" id="name" placeholder="name" data-name-search> 
+                <input type="tel" name="phone" id="phone" placeholder="Phone" minlength="10" maxlength="10" data-phone-search>
+                <input type="text" name="bookingID" id="bookingID" placeholder="booking ID" data-bid-search> 
+                <input type="reset" value="Clear the Above Inputs"> 
+            </form>
+        </div>
+        <input type="submit" value="Post the above Booking" onclick="onPostClick()" 
+            style=" width:24rem; height: 2rem; margin: .2rem; font-size:inherit ; border-radius: .2rem; border:1px #a0a940 solid; "> 
+    </div>  
+    <script>    
+        onPostClick=()=>{    
+            const formData={  
+            'name' : adminInput.name.value,
+            'start' : adminInput.start.value, 
+            'end' : adminInput.end.value ,
+            'phone' : adminInput.phone.value, 
+            'bookingID' : adminInput.bookingID.value }
+            fetch('/booking/confirm',{ 
+                method:"post", 
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded" 
+                }, 
+                body:new URLSearchParams(formData).toString()
+            } ).then(res => res.json())
+            .then( data => {document.getElementById('txt').innerHTML=data.Message , dataChanged();})
+            .catch(err => console.log(err))
+        } 
+    </script>
+    </div> 
+    <p id="txt"></p>  
+    <div class="cards-container"
+     style="display: grid; grid-template-columns: repeat(auto-fill,minmax(18rem, 1fr));
+      gap: .25rem; margin-top: 1rem;" data-cards-container > 
+    </div>
+    <template template > 
+        <div class="card" 
+        style=" box-shadow: 0 2px 5px 0 rgba(0,0,0,.2); background-color: white; padding: .5rem;"> 
+            <div class="start" data-start></div> 
+            <div class="end" data-end></div> 
+            <div class="name" data-name></div> 
+            <div class="phone" data-phone></div> 
+            <div class="bookingID"data-bid ></div> 
+            <button id="delete" 
+            style="width: 100%; 
+                 height: 22%; 
+                 background-color: brown; 
+                 color: azure; 
+                 border: none;  
+                 margin: 1rem 0 1rem 0;  
+                 cursor: pointer; 
+                " data-button>Delete</button>
+        </div>
+    </template> 
+    <script>  
+        let arr = [] 
+        const template = document.querySelector('[template]')
+        const cardsContainer = document.querySelector('[data-cards-container]')
+        const dataChanged=()=>{ 
+        cardsContainer.innerHTML="";
+        fetch('/admin/search').then(res=> res.json()).then(data=> { 
+            let i=0;  
+            arr = data.db.map(e =>{   
+                const card =template.content.cloneNode(true).children[0]
+                const name = card.querySelector('[data-name]') 
+                const start = card.querySelector('[data-start]')
+                const end = card.querySelector('[data-end]')
+                const phone = card.querySelector('[data-phone]')
+                const bookingID= card.querySelector('[data-bid]') 
+                const button = card.querySelector('[data-button]')
+                name.textContent = `name:   ${e.name} ` 
+                start.textContent = `start:  ${e.start}`
+                end.textContent = `end:   ${e.end}` 
+                phone.textContent = `phone:  ${e.phone}` 
+                bookingID.textContent= `booking id:  ${e.bookingID}`
+                button.textContent = i 
+                button.onclick=()=>onDelteClick(button.textContent); 
+                cardsContainer.append(card) 
+                i++
+                return  { 
+                    start:e.start,end:e.end,name:e.name,phone:e.phone,bookingID:e.bookingID, element:card
+                } 
+                setTimeout(()=>{ document.getElementById('txt').innerHTML=""}, 2000)
+            })  
+        })}
+
+        const sdatesearch = document.querySelector('[data-start-search]')  
+        const edatesearch = document.querySelector('[data-end-search]') 
+        const phonesearch = document.querySelector('[data-phone-search]') 
+        const namesearch = document.querySelector('[data-name-search]') 
+        const bookingidsearch = document.querySelector('[data-bid-search]')
+        sdatesearch.addEventListener('input', e=>{
+            const value =e.target.value  
+            arr.forEach( e=> {
+               const isVisible = e.start.includes(value) 
+               e.element.classList.toggle('hide',!isVisible)
+             })
+
+        }) 
+        edatesearch.addEventListener('input', e=>{
+            const value =e.target.value  
+            arr.forEach( e=> {
+               const isVisible = e.end.includes(value) 
+               e.element.classList.toggle('hide',!isVisible)
+             })
+
+        }) 
+        namesearch.addEventListener('input', e=>{
+            const value =e.target.value.toLowerCase()  
+            arr.forEach( e=> {
+               const isVisible = e.name.toLowerCase().includes(value) 
+               e.element.classList.toggle('hide',!isVisible)
+             })
+
+        }) 
+        phonesearch.addEventListener('input', e=>{
+            const value =e.target.value  
+            arr.forEach( e=> {
+               const isVisible = e.phone.includes(value) 
+               e.element.classList.toggle('hide',!isVisible)
+             })
+
+        })
+        bookingidsearch.addEventListener('input', e=>{
+            const value =e.target.value  
+            arr.forEach( e=> {
+               const isVisible = e.bookingID.includes(value) 
+               e.element.classList.toggle('hide',!isVisible)
+             })
+
+        })  
+        const onDelteClick=(l)=>{  
+            const h = confirm('Click okay if you want to delete') 
+            if(h){  
+            arr[l].element.classList.toggle('hide',true)  
+            // let delItem=db.splice(l,1); 
+            //arr.forEach(e=> delete e.element) 
+            // console.log(db,delItem) 
+            fetch('/admin/delete',{
+                method:'post',
+                headers:{ 
+                    'Content-Type':'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({index: l}).toString()
+            })
+            .then(res=>res.json())
+            .then(data=>{document.getElementById('txt').innerHTML= data.Message; dataChanged();})
+            .catch(err=>console.log(err))
+            
+            } 
+            else{return}
+        } 
+        dataChanged(); 
+    </script>
+</body>
+</html> 
