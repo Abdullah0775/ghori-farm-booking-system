@@ -3,7 +3,7 @@ const fs = require('fs');
 const https = require('https');
 const rzpay = require('razorpay');
 const crypto = require('crypto');
-const rzpKey = { key_id: 'rzp_test_D74dAvNEV1rMap', key_secret: 'zPDxeaaC0iDQ4fNnEQ1ZHIqd' }
+const rzpKey = { key_id: '', key_secret: '' }
 const rpzInitial = new rzpay(rzpKey);
 const app = express();
 
